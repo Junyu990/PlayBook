@@ -1,0 +1,337 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.23;
+
+contract SportsBetting {
+    // Struct to represent a sports event
+    struct Event {
+        uint256 id;              // Unique identifier for the event
+        string name;             // Name of the sports event
+        uint256 startTime;       // Start time of the sports event
+        uint256 endTime;         // End time of the sports event
+        bool isSettled;          // Flag to track if the event is settled
+    }
+
+    // Struct to represent a bet
+    struct Bet {
+        uint256 eventId;         // ID of the event
+        string teamPlacing;      // Team chosen by the bettor
+        uint256 amount;          // Amount of the bet
+        string time;             // Set time of Bet Placed
+        bool isSettled;
+        address wallet;
+    }
+
+    struct User {
+        uint userID;
+        string username;         // Username of the user
+        string firstname;
+        string lastname;
+        string email;
+        string password; // Hashed password
+    }
+    
+    mapping(uint => User) public users;
+    event UserDeleted(uint userID);
+    
+    uint public lastUserID;     // Variable to keep track of the last assigned user ID
+
+    // Event to signal when a new user is registered
+    event UserRegistered(uint userID, string username, string firstname, string lastname, string email, string password);
+
+    // Function to register a new user
+    function registerUser(string memory _username, string memory _firstname, string memory _lastname, string memory _email, string memory _password) public {
+        require(bytes(_username).length > 0, "Username cannot be empty");
+        require(bytes(_firstname).length > 0, "First name cannot be empty");
+        require(bytes(_lastname).length > 0, "Last name cannot be empty");
+        require(bytes(_email).length > 0, "Email cannot be empty");
+        require(bytes(_password).length > 0, "Password cannot be empty");
+
+        // Increment the user ID
+        lastUserID++;
+
+        // Create a new user
+        users[lastUserID] = User(lastUserID, _username, _firstname, _lastname, _email, _password);
+
+        // Emit the UserRegistered event
+        emit UserRegistered(lastUserID, _username, _firstname, _lastname, _email, _password);
+    }
+    
+    function deleteUser(uint userID) public {
+        require(users[userID].userID != 0, "User not registered");
+        
+        delete users[userID];
+        emit UserDeleted(userID);
+    }
+
+   // Event to signal when a user logs in
+    event UserLoggedIn(uint userID, string username);
+
+    function login(string memory _username, string memory _password) public {
+        // Find the user ID by username
+        uint userIndex = findUserIDByUsername(_username);
+
+        // Ensure the user exists
+        require(userIndex != 0, "User not found");
+
+        // Retrieve the user
+        User storage user = users[userIndex];
+
+        // Check if the password matches
+        require(compareStringStorage(_password, user.password), "Invalid password");
+
+        // Emit the UserLoggedIn event
+        emit UserLoggedIn(user.userID, _username);
+    }
+
+    function compareStringStorage(string memory a, string storage b) internal view returns (bool) {
+        bytes memory aBytes = bytes(a);
+        bytes storage bBytes = bytes(b);
+        if (aBytes.length != bBytes.length) {
+            return false;
+        }
+        for (uint i = 0; i < aBytes.length; i++) {
+            if (aBytes[i] != bBytes[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    
+
+    // Helper function to find the user ID by username
+    function findUserIDByUsername(string memory _username) public view returns (uint) {
+        for (uint i = 1; i <= lastUserID; i++) {
+            if (compareStrings(users[i].username, _username)) {
+                return i;
+            }
+        }
+        return 0; // User not found
+    }
+
+    function compareStrings(string memory a, string memory b) internal pure returns (bool) {
+        return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
+    }
+
+    // Mapping to store events by their ID
+    mapping(uint256 => Event) public eventsMap;
+
+    // Mapping to store bets by their ID
+    mapping(uint256 => Bet) public betsMap;
+
+    // Mapping to store bet counts for each event
+    mapping(uint256 => uint256) public betCountForEvent;
+
+    // Variable to keep track of the last assigned event ID
+    uint256 public eventCount;
+
+    function getEventCount() external view returns (uint256) {
+        return eventCount;
+    }
+
+    // Variable to keep track of the last assigned bet ID
+    uint256 public betCount;
+
+    // Function to return the bet count
+    function getBetCount() external view returns (uint256) {
+        return betCount;
+    }
+
+    // Event to signal when a new sports event is created
+    event EventCreated(uint256 id, string name, uint256 startTime, uint256 endTime, bool isSettled);
+    // Event to release bet
+    event BetsReleased(uint256 betId, uint256 amount);
+    // Event to signal when a new bet is placed
+    event BetPlaced(uint256 eventId, string teamPlacing, uint256 amount, string time, address wallet);
+
+    // Function to create a new sports event
+    function createEvent(string memory _name, uint256 _startTime, uint256 _endTime) external {
+        require(_endTime > _startTime, "End time must be greater than start time");
+
+        // Increment the event ID
+        eventCount++;
+
+        // Create a new sports event
+        Event storage newEvent = eventsMap[eventCount];
+        newEvent.id = eventCount;
+        newEvent.name = _name;
+        newEvent.startTime = _startTime;
+        newEvent.endTime = _endTime;
+        newEvent.isSettled = false;
+
+        // Emit the EventCreated event
+        emit EventCreated(eventCount, _name, _startTime, _endTime, false);
+    }
+
+    // Function to place a new bet
+    function placeBet(uint256 _eventId, string memory _teamPlacing, string memory _time) public payable {
+        require(_eventId > 0 && _eventId <= eventCount, "Invalid event ID");
+        require(bytes(_teamPlacing).length > 0, "Team placing cannot be empty");
+        require(msg.value > 0, "Amount must be greater than zero");
+        // require(bytes(_time).length > 0, "Time cannot be empty");
+
+        // Increment the bet ID
+        betCount++;
+
+        // Increment the bet count for the event
+        betCountForEvent[_eventId]++;
+
+        // Create a new bet
+        Bet storage newBet = betsMap[betCount];
+        newBet.eventId = _eventId;
+        newBet.teamPlacing = _teamPlacing;
+        newBet.amount = msg.value; // Use msg.value to get the amount sent with the transaction
+        newBet.time = _time;
+        newBet.isSettled = false;
+        newBet.wallet = msg.sender;
+
+        // Emit the BetPlaced event
+        emit BetPlaced(_eventId, _teamPlacing, msg.value, _time, msg.sender);
+    }
+
+    // Function to get details of a specific event
+    function getEvent(uint256 eventId) external view returns (
+        uint256 id,
+        string memory name,
+        uint256 startTime,
+        uint256 endTime,
+        bool isSettled
+    ) {
+        require(eventId > 0 && eventId <= eventCount, "Invalid event ID");
+
+        // Get the event details from the mapping
+        Event storage eventDetails = eventsMap[eventId];
+
+        // Return the event details
+        return (
+            eventDetails.id,
+            eventDetails.name,
+            eventDetails.startTime,
+            eventDetails.endTime,
+            eventDetails.isSettled
+        );
+    }
+
+    // Function to get details of a specific bet
+    function getBet(uint256 betId) external view returns (
+        uint256 eventId,
+        string memory teamPlacing,
+        uint256 amount,
+        string memory time,
+        bool isSettled,
+        address wallet
+    ) {
+        require(betId > 0 && betId <= betCount, "Invalid bet ID");
+        // Get the bet details from the mapping
+        Bet storage betDetails = betsMap[betId];
+        return (
+            betDetails.eventId,
+            betDetails.teamPlacing,
+            betDetails.amount,
+            betDetails.time,
+            betDetails.isSettled,
+            betDetails.wallet
+        );
+    }
+
+    // Function to get the bet count for a specific event
+    function getBetCountForEvent(uint256 eventId) external view returns (uint256) {
+        require(eventId > 0 && eventId <= eventCount, "Invalid event ID");
+
+        // Return the bet count for the event
+        return betCountForEvent[eventId];
+    }
+
+    // Event to signal when funds are released to the winner
+    event FundsReleased(uint256 betId, address winner, uint256 amount);
+
+    // State variable representing the contract owner's address
+    address public contractOwner;
+
+    // Constructor to set the contract owner
+    constructor() {
+        contractOwner = msg.sender;
+    }
+
+    // Function to release funds to the winner
+    function releaseFunds(uint256 betId, address payable winner) public payable {
+        require(betId > 0 && betId <= betCount, "Invalid bet ID");
+
+        // Get the bet details from the mapping
+        Bet storage betDetails = betsMap[betId];
+
+        // Ensure the bet is settled and not released before
+        require(!betDetails.isSettled, "Bet is already settled");
+        require(msg.sender == contractOwner, "Only owner can release funds");
+
+        // Transfer funds to the winner
+        winner.transfer(betDetails.amount);
+
+        // Emit the FundsReleased event
+        emit FundsReleased(betId, winner, betDetails.amount);
+
+        // Update the bet details to mark it settled
+        betDetails.isSettled = true;
+
+        // Delete the bet details
+        delete betsMap[betId];
+
+        // Decrement the bet count
+        betCount--;
+    }
+
+    // Event to signal when an existing sports event is updated
+    event EventUpdated(uint256 id, string name, uint256 startTime, uint256 endTime, bool isSettled);
+
+    // Function to update an existing sports event
+    function updateEvent(
+        uint256 eventId,
+        string memory _name,
+        uint256 _startTime,
+        uint256 _endTime,
+        bool _isSettled
+    ) external {
+        require(eventId > 0 && eventId <= eventCount, "Invalid event ID");
+
+        // Get the existing event details
+        Event storage existingEvent = eventsMap[eventId];
+
+        // Update the event details
+        existingEvent.name = _name;
+        existingEvent.startTime = _startTime;
+        existingEvent.endTime = _endTime;
+        existingEvent.isSettled = _isSettled;
+
+        // Emit the EventUpdated event
+        emit EventUpdated(eventId, _name, _startTime, _endTime, _isSettled);
+    }
+
+    // Event to signal when an event is deleted
+    event EventDeleted(uint256 id, string name, uint256 startTime, uint256 endTime, bool isSettled);
+
+    // Function to delete an existing sports event
+    function deleteEvent(uint256 eventId) external {
+        require(eventId > 0 && eventId <= eventCount, "Invalid event ID");
+
+        // Retrieve the event details
+        Event storage eventToDelete = eventsMap[eventId];
+
+        // Ensure the event is not settled before deletion
+        require(!eventToDelete.isSettled, "Cannot delete a settled event");
+
+        // Check if there are no bets placed on this event
+        require(betCountForEvent[eventId] == 0, "Cannot delete event with active bets");
+
+        // Emit an event to signal that the event is about to be deleted
+        emit EventDeleted(eventId, eventToDelete.name, eventToDelete.startTime, eventToDelete.endTime, eventToDelete.isSettled);
+
+        // Remove the event from the eventsMap
+        delete eventsMap[eventId];
+
+        // Decrement the event count
+        eventCount--;
+
+        // Emit the EventUpdated event (you can customize this event based on your requirements)
+        emit EventUpdated(eventId, eventToDelete.name, eventToDelete.startTime, eventToDelete.endTime, true);
+    }
+}
