@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Home | PlayBook</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../Images/playbookicon1.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  
+  <!-- To connect to ABI and MetaMask-->
+  <script type="text/javascript" src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.3.6/dist/web3.min.js"></script>
+  <script src="../App.js"></script>
+</head>
+
+<body>
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div class="hero-container">
+      <h1>Welcome to
+        <br>
+         <a href="../Web/index.html"><a href="../Web/index.html" class="logo me-auto me-lg-0"><img src="../Images/playbooklogo2.png" alt="" class="img-fluid"></a></h1>
+      <h2>Get in the game, change the game.</h2>
+      <a href="#about" class="btn-get-started scrollto">Get Started</a>
+    </div>
+  </section><!-- End Hero -->
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center ">
+    <div class="container-fluid d-flex align-items-center justify-content-lg-between">
+
+      <h1 class="logo me-auto me-lg-0"><a href="../Web/index.html"><a href="../Web/index.html" class="logo me-auto me-lg-0"><img src="../Images/playbooklogo2.png" alt="" class="img-fluid"></a></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#about">About</a></li>
+          <li class="dropdown"><a href="#services"  class="nav-link scrollto"><span>Events</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="../Web/eventinfo.html">View Event Information</a></li>
+              <li><a href="../Web/createvent.html">Create New Events</a></li>
+              <li><a href="../Web/updateevent.html">Update Your Events</a></li>
+              <li><a href="../Web/eventinfo.html">Create Bets</a></li>
+              <li id="listowneronly"><a href="../Web/deleteevent.html">Delete Event (Owner Only)</a></li>
+              <li id="listowneronly"><a href="../Web/releasefunds.html">Release Funds (Owner Only)</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
+          <li><a class="nav-link scrollto" href="#team">Team</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      <div class="header-social-links d-flex align-items-center">
+        <!-- Welcome Message and Logout Button -->
+        <span id="welcomeMessage" style="color: white;"></span>
+        <button class="btn btn-outline-primary ms-3 active" id="logoutButton" onclick="logout()">Logout</button>
+        <!-- Sign Up Button -->
+        <a href="../Web/signup.html" class="btn btn-outline-primary ms-3" id="signUpButton">Sign Up</a>
+        <!-- Login Button -->
+        <a href="../Web/login.html" class="btn btn-outline-primary ms-3" id="loginButton">Login</a>
+
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+      </div>
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>About Us</h2>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-6">
+            <p>
+              At PlayBook, we're passionate about revolutionizing the world of sports betting through cutting-edge technology and decentralized solutions. As avid sports enthusiasts ourselves, we understand the thrill of the game and the excitement of placing bets on your favorite teams. 
+              That's why we've created a platform that combines the exhilaration of sports with the security and transparency of blockchain technology.
+            </p>
+            <ul>
+              <li><i class="ri-check-double-line"></i> PlayBook operates as a DApp Sports Betting platform, providing decentralized solutions for users' betting needs.</li>
+              <li><i class="ri-check-double-line"></i> Utilizing blockchain technology, PlayBook enhances security measures, ensuring the integrity and privacy of user transactions.</li>
+              <li><i class="ri-check-double-line"></i> Transparency is a key feature of PlayBook, which fostering trust and accountability within the platform.</li>
+            </ul>
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <p>
+              PlayBook stands at the forefront of innovation in the realm of decentralized applications (DApps), revolutionizing the landscape of sports betting. 
+              Our platform is built on the principles of transparency, security, and user-centricity, aiming to deliver a seamless and trustworthy betting experience to enthusiasts worldwide. 
+              Leveraging the power of blockchain technology, PlayBook ensures that every transaction is immutable, transparent, and tamper-proof, fostering a level playing field for all participants. 
+              With a user-friendly interface and a wide array of sporting events to choose from, PlayBook caters to both casual bettors and seasoned professionals alike. 
+              Our commitment to fair play and responsible gambling is unwavering, as we strive to uphold the highest standards of integrity and ethical conduct. 
+              Join us on our journey as we redefine the future of sports betting, one block at a time.
+            </p>
+            <a href="#" class="btn-learn-more">Learn More</a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts">
+      <div class="container">
+
+        <div class="row counters">
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+            <p>Games</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-purecounter-start="0" data-purecounter-end="3000" data-purecounter-duration="1" class="purecounter"></span>
+            <p>Active Players</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
+            <p>Hours Of Support</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-purecounter-start="0" data-purecounter-end="200000" data-purecounter-duration="1" class="purecounter"></span>
+            <p>Payouts</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Counts Section -->
+
+    <!-- ======= Our Values Section ======= -->
+    <section id="our-values" class="our-values">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-md-6 d-flex align-items-stretch">
+            <div class="card" style='background-image: url("assets/img/our-values-1.jpg");'>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">Our Mission</a></h5>
+                <p class="card-text">PlayBook's mission is to restore trust and integrity to sports betting through a seamless and secure platform, leveraging blockchain technology for transparent and immutable transactions.</p>
+                <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+            <div class="card" style='background-image: url("assets/img/our-values-2.jpg");'>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">Our Plan</a></h5>
+                <p class="card-text">
+                  We outline our strategic approach to revolutionizing the sports betting industry by harnessing the potential of blockchain technology to enhance transparency, security, and user experience.
+                </p>
+                <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4">
+            <div class="card" style='background-image: url("assets/img/our-values-3.jpg");'>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">Our Vision</a></h5>
+                <p class="card-text">
+                  Our vision at PlayBook is to become the leading platform in the sports betting industry, setting new standards of transparency, fairness, and accessibility through innovative blockchain-powered solutions.
+                </p>
+                <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch mt-4">
+            <div class="card" style='background-image: url("assets/img/our-values-4.jpg");'>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">
+                  Our Values</a></h5>
+                <p class="card-text">Guiding principles that define our culture and shape our decisions, reflecting our commitment to excellence, integrity, and innovation.</p>
+                <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Our Values Section -->
+
+    <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients section-bg">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/newclient1.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/newclient2.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/newclient3.png" class="img-fluid" alt="" style="max-width: 180%;">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/newclient4.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/newclient5.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Clients Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Events</h2>
+          <p>More than just bets, it's a community. Our events section is a vibrant hub where passionate fans converge. Share your predictions, discuss strategies, and celebrate victories together. Find your tribe, forge lasting connections, and experience the camaraderie that transcends the scoreboard.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-briefcase" style="color: #ff689b;"></i></div>
+              <h4 class="title"><a href="./eventinfo.html">View Event Information</a></h4>
+              <p class="description">Click here to view our upcoming events!</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-card-checklist" style="color: #e9bf06;"></i></div>
+              <h4 class="title"><a href="../Web/createvent.html">Create New Events</a></h4>
+              <p class="description">Interested in creating your own events? Click here to create an event!</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-bar-chart" style="color: #3fcdc7;"></i></div>
+              <h4 class="title"><a href="">Update your Events</a></h4>
+              <p class="description">Update your created events here!</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-4">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-shop" style="color:#41cf2e;"></i></div>
+              <h4 class="title"><a href="../Web/eventinfo.html">Create Bets</a></h4>
+              <p class="description">Click here to start placing your bets for your favourite events!</p>
+            </div>
+          </div>
+            <div class="col-lg-4 col-md-6 mt-4 owneronly">
+              <div class="icon-box">
+                <div class="icon"><i class="bi bi-trash3" style="color: #d6ff22;"></i></div>
+                <h4 class="title"><a href="../Web/deleteevent.html">Delete Events <br>(Owner Only)</a></h4>
+                <p class="description">Delete Events that does not have any bets</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mt-4 owneronly">
+              <div class="icon-box">
+                <div class="icon"><i class="bi bi-bank" style="color: #4680ff;"></i></div>
+                <h4 class="title"><a href="">Check and Release Funds <br>(Owner Only)</a></h4>
+                <p class="description">Check Bets of Events and Release Funds to winner!</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Testimonials</h2>
+          <p>Discover what our satisfied users have to say about their experience with PlayBook. Read firsthand accounts of how our platform has transformed their sports betting journey and why they trust us for their betting needs.</p>
+        </div>
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  I've been a loyal user of PlayBook for years now, and I've never experienced such seamless and transparent sports betting anywhere else. The platform's commitment to security and fair play is truly commendable.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                <h3>Saul Goodman</h3>
+                <h4>Ceo &amp; Founder</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  PlayBook has revolutionized my sports betting experience. With their user-friendly interface and efficient customer service, I feel confident placing my bets and enjoying the thrill of the game.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                <h3>Sara Wilsson</h3>
+                <h4>Designer</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  As a seasoned sports bettor, I've tried numerous platforms, but none compare to PlayBook. Their wide range of events, competitive odds, and fast payouts keep me coming back for more.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                <h3>Jena Karlis</h3>
+                <h4>Store Owner</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  PlayBook's dedication to innovation sets them apart from other betting platforms. Their integration of blockchain technology ensures transparency and trustworthiness, making it my go-to choice for sports betting.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                <h3>Matt Brandon</h3>
+                <h4>Freelancer</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  I stumbled upon PlayBook while searching for a reliable sports betting platform, and I'm glad I did. The platform's user-friendly interface, coupled with their responsive support team, has made my betting experience truly enjoyable.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                <h3>John Larson</h3>
+                <h4>Entrepreneur</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+    
+    <!-- ======= Cta Section ======= -->
+    <section id="cta" class="cta">
+      <div class="container">
+        <div class="text-center">
+          <h3>Join Us Today!</h3>
+          <p>Ready to elevate your sports betting experience? Sign up now and start enjoying exclusive offers, personalized recommendations, and seamless transactions.</p>
+          <a class="cta-btn" href="../Web/signup.html">Sign Up Now</a>
+        </div>
+      </div>
+    </section><!-- End Cta Section -->
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Games & Events</h2>
+          <p>Explore our diverse selection of thrilling games and upcoming sporting events. Whether you're passionate about football, basketball, or any other sport, we've curated an exciting lineup that caters to every sports betting enthusiast!</p>
+        </div>
+
+        <ul id="portfolio-flters" class="d-flex justify-content-center">
+          <li data-filter="*" class="filter-active">All</li>
+          <li data-filter=".filter-sports">Sports</li>
+          <li data-filter=".filter-betting">Betting</li>
+          <li data-filter=".filter-game">Games</li>
+        </ul>
+
+        <div class="row portfolio-container">
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-sports">
+            <div class="portfolio-img"><img src="assets/img/portfolio/sports1.jpg" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Basketball</h4>
+              <p>Sports</p>
+              <a href="assets/img/portfolio/sports1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-betting">
+            <div class="portfolio-img"><img src="assets/img/portfolio/betting1.jpg" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Blackjack</h4>
+              <p>Betting</p>
+              <a href="assets/img/portfolio/betting1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-sports">
+            <div class="portfolio-img"><img src="assets/img/portfolio/sports2.jpg" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Boxing</h4>
+              <p>Sports</p>
+              <a href="assets/img/portfolio/sports2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-sports">
+            <div class="portfolio-img"><img src="assets/img/portfolio/sports3.jpg" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Soccer</h4>
+              <p>Sports</p>
+              <a href="assets/img/portfolio/sports3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-game">
+            <div class="portfolio-img"><img src="assets/img/portfolio/game1.jpg" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Esports</h4>
+              <p>Games</p>
+              <a href="assets/img/portfolio/game1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-betting">
+            <div class="portfolio-img"><img src="assets/img/portfolio/betting2.jpg" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Poker</h4>
+              <p>Betting</p>
+              <a href="assets/img/portfolio/betting2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-sports">
+            <div class="portfolio-img"><img src="assets/img/portfolio/sports4.jpg" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Badminton</h4>
+              <p>Sports</p>
+              <a href="assets/img/portfolio/sports4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-betting">
+            <div class="portfolio-img"><img src="assets/img/portfolio/betting3.jpg" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Poker</h4>
+              <p>Web</p>
+              <a href="assets/img/portfolio/betting3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-betting">
+            <div class="portfolio-img"><img src="assets/img/portfolio/betting4.jpg" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Roulettes</h4>
+              <p>Betting</p>
+              <a href="assets/img/portfolio/betting4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-betting">
+            <div class="portfolio-img"><img src="assets/img/portfolio/betting5.jpg" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Slots</h4>
+              <p>Betting</p>
+              <a href="assets/img/portfolio/betting5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-betting">
+            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Card 3</h4>
+              <p>Betting</p>
+              <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-sports">
+            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Web 3</h4>
+              <p>Sports</p>
+              <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+
+    <!-- ======= Team Section ======= -->
+    <section id="team" class="team section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Team</h2>
+          <p>Meet the dedicated team behind PlayBook, committed to providing you with the best sports betting experience.</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <div class="member-img">
+                <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Walter White</h4>
+                <span>Chief Executive Officer</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <div class="member-img">
+                <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Sarah Jhonson</h4>
+                <span>Product Manager</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <div class="member-img">
+                <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>William Anderson</h4>
+                <span>CTO</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <div class="member-img">
+                <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Amanda Jepson</h4>
+                <span>Accountant</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Team Section -->
+
+    <!-- ======= Betting Plans Section ======= -->
+    <section id="betting-plans" class="pricing">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Betting Plans</h2>
+          <p>Choose the plan that suits your betting needs and start winning big today!</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="box">
+              <h3>Basic</h3>
+              <h4><sup>$</sup>0<span> / month</span></h4>
+              <ul>
+                <li>Access to basic features</li>
+                <li>Limited betting options</li>
+                <li>Low betting limits</li>
+                <li class="na">Premium support</li>
+                <li class="na">Exclusive promotions</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Get Started</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
+            <div class="box featured">
+              <h3>Pro</h3>
+              <h4><sup>$</sup>29<span> / month</span></h4>
+              <ul>
+                <li>Access to all features</li>
+                <li>Wide range of betting options</li>
+                <li>Higher betting limits</li>
+                <li>Premium support</li>
+                <li>Exclusive promotions</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Get Started</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
+            <div class="box">
+              <h3>VIP</h3>
+              <h4><sup>$</sup>99<span> / month</span></h4>
+              <ul>
+                <li>Access to all features</li>
+                <li>Exclusive betting options</li>
+                <li>No betting limits</li>
+                <li>Premium support</li>
+                <li>Exclusive promotions</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Get Started</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
+            <div class="box">
+              <span class="advanced">Premium</span>
+              <h3>Elite</h3>
+              <h4><sup>$</sup>199<span> / month</span></h4>
+              <ul>
+                <li>Access to all features</li>
+                <li>Personalized betting experience</li>
+                <li>24/7 dedicated support</li>
+                <li>Premium promotions</li>
+                <li>VIP events access</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Get Started</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Betting Plans Section -->
+
+
+    <!-- ======= Frequently Asked Questions Section ======= -->
+    <section id="faq" class="faq section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Frequently Asked Questions</h2>
+          <p>Find answers to common questions about sports betting and our platform.</p>
+        </div>
+
+        <div class="faq-list">
+          <ul>
+            <li data-aos="fade-up">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">Is sports betting legal? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
+                <p>
+                  Yes, sports betting is legal in many countries, but it's important to check the regulations in your specific location before placing bets.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="100">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">How can I deposit funds into my betting account? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  You can deposit funds into your betting account using various payment methods such as credit/debit cards, bank transfers, or e-wallets. Simply navigate to the deposit section of our platform to choose your preferred method.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="200">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">How do I place a bet? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  To place a bet, simply browse through the available sports events and select the one you want to bet on. Then, choose your desired outcome and enter the amount you wish to wager. Finally, confirm your bet to place it.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="300">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-4" class="collapsed">Can I bet on live sports events? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-4" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Yes, you can bet on live sports events through our platform. We offer live betting options for various sports, allowing you to place bets in real-time as the action unfolds.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="400">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-5" class="collapsed">What happens if a sports event is canceled or postponed? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-5" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  If a sports event is canceled or postponed, the bets placed on that event are usually refunded or carried over to the rescheduled event, depending on the specific terms and conditions of the betting platform.
+                </p>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </section><!-- End Frequently Asked Questions Section -->
+
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>Have questions or need assistance? Get in touch with us!</p>
+        </div>
+
+        <div>
+          <iframe style="border:0; width: 100%; height: 270px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15954.644746298643!2d103.8489487!3d1.37995!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da16eb64b0249d%3A0xe5f10ff680eed942!2sNanyang%20Polytechnic!5e0!3m2!1sen!2ssg!4v1706296898605!5m2!1sen!2ssg" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="row mt-5">
+
+                <div class="col-lg-4">
+                  <div class="info">
+                      <div class="address">
+                          <i class="bi bi-geo-alt"></i>
+                          <h4>Location:</h4>
+                          <p>PlayBook Sports Betting</p>
+                          <p>123 Main Street</p>
+                          <p>New York, NY 10001</p>
+                          <p>United States</p>
+                      </div>
+              
+                      <div class="email">
+                          <i class="bi bi-envelope"></i>
+                          <h4>Email:</h4>
+                          <p>contact@playbook.com</p>
+                      </div>
+              
+                      <div class="phone">
+                          <i class="bi bi-phone"></i>
+                          <h4>Call:</h4>
+                          <p>+1 123 456 7890</p>
+                      </div>
+                  </div>
+              </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+
+      <div class="container">
+
+        <div class="row  justify-content-center">
+          <div class="col-lg-6">
+            <h3><a href="index.html"><a href="index.html" class="logo me-auto me-lg-0"><img src="../Images/playbooklogo2.png" alt="" class="img-fluid"></a></h3>
+            <p>Enter your email to receive our monthly newsletter!</p>
+          </div>
+        </div>
+
+        <div class="row footer-newsletter justify-content-center">
+          <div class="col-lg-6">
+            <form action="" method="post">
+              <input type="email" name="email" placeholder="Enter your Email"><input type="submit" value="Subscribe">
+            </form>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>PlayBook</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
