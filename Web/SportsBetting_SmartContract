@@ -9,6 +9,7 @@ contract SportsBetting {
         uint256 startTime;       // Start time of the sports event
         uint256 endTime;         // End time of the sports event
         bool isSettled;          // Flag to track if the event is settled
+        bool isActive;           // Flag to track if the event is active or deleted
     }
 
     // Struct to represent a bet
@@ -28,11 +29,14 @@ contract SportsBetting {
         string lastname;
         string email;
         string password; // Hashed password
+        string mobile;
+        string _address;
     }
-    
+
+
     mapping(uint => User) public users;
     event UserDeleted(uint userID);
-    
+
     uint public lastUserID;     // Variable to keep track of the last assigned user ID
 
     // Event to signal when a new user is registered
@@ -49,8 +53,8 @@ contract SportsBetting {
         // Increment the user ID
         lastUserID++;
 
-        // Create a new user
-        users[lastUserID] = User(lastUserID, _username, _firstname, _lastname, _email, _password);
+        // Create a new user""
+        users[lastUserID] = User(lastUserID, _username, _firstname, _lastname, _email, _password,"", "");
 
         // Emit the UserRegistered event
         emit UserRegistered(lastUserID, _username, _firstname, _lastname, _email, _password);
@@ -77,7 +81,7 @@ contract SportsBetting {
         User storage user = users[userIndex];
 
         // Check if the password matches
-        require(compareStringStorage(_password, user.password), "Invalid password");
+        require(compareStringStorage(_password, user.password), "Invalid username or password");
 
         // Emit the UserLoggedIn event
         emit UserLoggedIn(user.userID, _username);
@@ -113,17 +117,11 @@ contract SportsBetting {
         return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
     }
 
-    // Mapping to store events by their ID
-    mapping(uint256 => Event) public eventsMap;
-
     // Mapping to store bets by their ID
     mapping(uint256 => Bet) public betsMap;
 
     // Mapping to store bet counts for each event
     mapping(uint256 => uint256) public betCountForEvent;
-
-    // Variable to keep track of the last assigned event ID
-    uint256 public eventCount;
 
     function getEventCount() external view returns (uint256) {
         return eventCount;
@@ -138,30 +136,14 @@ contract SportsBetting {
     }
 
     // Event to signal when a new sports event is created
-    event EventCreated(uint256 id, string name, uint256 startTime, uint256 endTime, bool isSettled);
+    event EventCreated(uint256 id, string name, uint256 startTime, uint256 endTime, bool isSettled, bool isActive);
     // Event to release bet
     event BetsReleased(uint256 betId, uint256 amount);
     // Event to signal when a new bet is placed
     event BetPlaced(uint256 eventId, string teamPlacing, uint256 amount, string time, address wallet);
 
-    // Function to create a new sports event
-    function createEvent(string memory _name, uint256 _startTime, uint256 _endTime) external {
-        require(_endTime > _startTime, "End time must be greater than start time");
-
-        // Increment the event ID
-        eventCount++;
-
-        // Create a new sports event
-        Event storage newEvent = eventsMap[eventCount];
-        newEvent.id = eventCount;
-        newEvent.name = _name;
-        newEvent.startTime = _startTime;
-        newEvent.endTime = _endTime;
-        newEvent.isSettled = false;
-
-        // Emit the EventCreated event
-        emit EventCreated(eventCount, _name, _startTime, _endTime, false);
-    }
+    // Variable to store the total amount of ETH in the pool
+        uint256 public totalEthInPool;
 
     // Function to place a new bet
     function placeBet(uint256 _eventId, string memory _teamPlacing, string memory _time) public payable {
@@ -184,6 +166,9 @@ contract SportsBetting {
         newBet.time = _time;
         newBet.isSettled = false;
         newBet.wallet = msg.sender;
+
+        // Update the total amount of ETH in the pool
+        totalEthInPool += msg.value;
 
         // Emit the BetPlaced event
         emit BetPlaced(_eventId, _teamPlacing, msg.value, _time, msg.sender);
@@ -248,37 +233,55 @@ contract SportsBetting {
     // State variable representing the contract owner's address
     address public contractOwner;
 
-    // Constructor to set the contract owner
-    constructor() {
-        contractOwner = msg.sender;
+    function getContractOwner() external view returns (address) {
+        return contractOwner;
     }
 
     // Function to release funds to the winner
-    function releaseFunds(uint256 betId, address payable winner) public payable {
-        require(betId > 0 && betId <= betCount, "Invalid bet ID");
+function releaseFunds(uint256 betId, address payable winner) public {
+    require(betId > 0 && betId <= betCount, "Invalid bet ID");
 
-        // Get the bet details from the mapping
-        Bet storage betDetails = betsMap[betId];
+    // Get the bet details from the mapping
+    Bet storage betDetails = betsMap[betId];
 
-        // Ensure the bet is settled and not released before
-        require(!betDetails.isSettled, "Bet is already settled");
-        require(msg.sender == contractOwner, "Only owner can release funds");
+    // Ensure the bet is settled and not released before
+    require(!betDetails.isSettled, "Bet is already settled");
+    require(msg.sender == contractOwner, "Only owner can release funds");
 
-        // Transfer funds to the winner
-        winner.transfer(betDetails.amount);
+    // Ensure the totalEthInPool is greater than or equal to the bet amount
+    require(totalEthInPool >= betDetails.amount, "Insufficient funds in the pool");
 
-        // Emit the FundsReleased event
-        emit FundsReleased(betId, winner, betDetails.amount);
+    // Attempt to transfer funds to the winner
+    bool transferSuccess = winner.send(betDetails.amount);
 
-        // Update the bet details to mark it settled
-        betDetails.isSettled = true;
+    // Check if the transfer was successful
+    require(transferSuccess, "Failed to transfer funds to the winner");
 
-        // Delete the bet details
-        delete betsMap[betId];
+    // Emit the FundsReleased event
+    emit FundsReleased(betId, winner, betDetails.amount);
 
-        // Decrement the bet count
-        betCount--;
+    // Update the bet details to mark it settled
+    betDetails.isSettled = true;
+
+    // Update the totalEthInPool by subtracting the bet amount
+    totalEthInPool -= betDetails.amount;
+
+    // Shift data to fill the gap
+    for (uint256 i = betId; i < betCount; i++) {
+        betsMap[i] = betsMap[i + 1];
     }
+
+    // Decrement the bet count for the event
+    betCountForEvent[betDetails.eventId]--;
+
+    // Decrement the bet count
+    betCount--;
+
+    // Delete the last bet
+    delete betsMap[betCount + 1];
+}
+
+
 
     // Event to signal when an existing sports event is updated
     event EventUpdated(uint256 id, string name, uint256 startTime, uint256 endTime, bool isSettled);
@@ -309,6 +312,70 @@ contract SportsBetting {
     // Event to signal when an event is deleted
     event EventDeleted(uint256 id, string name, uint256 startTime, uint256 endTime, bool isSettled);
 
+    // Function to check if an event is active
+    function isEventActive(uint256 eventId) external view returns (bool) {
+        require(eventId > 0 && eventId <= eventCount, "Invalid event ID");
+        return eventsMap[eventId].isActive;
+    }
+
+
+    // Function to release funds to the contract owner
+    function releaseToOwner(uint256 betId) public {
+        require(betId > 0 && betId <= betCount, "Invalid bet ID");
+
+        // Get the bet details from the mapping
+        Bet storage betDetails = betsMap[betId];
+
+        // Ensure the bet is settled and not released before
+        require(!betDetails.isSettled, "Bet is already settled");
+        require(msg.sender == contractOwner, "Only owner can release funds");
+
+        // Ensure the totalEthInPool is greater than or equal to the bet amount
+        require(totalEthInPool >= betDetails.amount, "Insufficient funds in the pool");
+
+        // Attempt to transfer funds to the contract owner
+        bool transferSuccess = payable(contractOwner).send(betDetails.amount);
+
+        // Check if the transfer was successful
+        require(transferSuccess, "Failed to transfer funds to the owner");
+
+        // Emit the FundsReleased event
+        emit FundsReleased(betId, contractOwner, betDetails.amount);
+
+        // Update the bet details to mark it settled
+        betDetails.isSettled = true;
+
+        // Update the totalEthInPool by subtracting the bet amount
+        totalEthInPool -= betDetails.amount;
+
+        // Decrement the bet count for the event
+        betCountForEvent[betDetails.eventId]--;
+
+        // Delete the bet details
+        delete betsMap[betId];
+
+        // Decrement the bet count
+        betCount--;
+    }
+
+    // Mapping to store events by their ID
+    mapping(uint256 => Event) public eventsMap;
+
+    // Variable to keep track of the last assigned event ID
+    uint256 public eventCount;
+
+    // Variable to keep track of the number of active events
+    uint256 public activeEventCount;
+
+    // Event to signal when an existing sports event is updated
+    event EventUpdated(uint256 id, string name, uint256 startTime, uint256 endTime, bool isSettled, bool isActive);
+
+    // Event to signal when an event is deleted
+    event EventDeleted(uint256 id, string name, uint256 startTime, uint256 endTime, bool isSettled, bool isActive);
+
+    // Event to signal when an event is deleted
+    event EventDeleted(uint256 id);
+    
     // Function to delete an existing sports event
     function deleteEvent(uint256 eventId) external {
         require(eventId > 0 && eventId <= eventCount, "Invalid event ID");
@@ -319,19 +386,92 @@ contract SportsBetting {
         // Ensure the event is not settled before deletion
         require(!eventToDelete.isSettled, "Cannot delete a settled event");
 
-        // Check if there are no bets placed on this event
-        require(betCountForEvent[eventId] == 0, "Cannot delete event with active bets");
+        // Ensure the event is active before deletion
+        require(eventToDelete.isActive, "Event is already deleted");
 
-        // Emit an event to signal that the event is about to be deleted
-        emit EventDeleted(eventId, eventToDelete.name, eventToDelete.startTime, eventToDelete.endTime, eventToDelete.isSettled);
+        // Emit the EventDeleted event to indicate the deletion
+        emit EventDeleted(eventId);
 
-        // Remove the event from the eventsMap
-        delete eventsMap[eventId];
+        // Shift data to fill the gap
+        for (uint256 i = eventId; i < eventCount; i++) {
+            eventsMap[i] = eventsMap[i + 1];
+        }
+
+        // Delete the last event
+        delete eventsMap[eventCount];
 
         // Decrement the event count
         eventCount--;
+    }
 
-        // Emit the EventUpdated event (you can customize this event based on your requirements)
-        emit EventUpdated(eventId, eventToDelete.name, eventToDelete.startTime, eventToDelete.endTime, true);
+    // Function to create a new sports event
+    function createEvent(string memory _name, uint256 _startTime, uint256 _endTime) external {
+        require(_endTime > _startTime, "End time must be greater than start time");
+
+        // Increment the event ID
+        eventCount++;
+
+        // Create a new sports event
+        eventsMap[eventCount] = Event(eventCount, _name, _startTime, _endTime, false, true);
+
+        // Increment the active event count
+        activeEventCount++;
+
+        // Emit the EventCreated event
+        emit EventCreated(eventCount, _name, _startTime, _endTime, false, true);
+    }
+
+    // Function to get details of a specific user
+    function getUser(uint256 userId) external view returns (
+        uint256 userID,
+        string memory username,
+        string memory firstname,
+        string memory lastname,
+        string memory email,
+        string memory password,
+        string memory mobile,
+        string memory _address
+    ) {
+        require(userId > 0 && userId <= lastUserID, "Invalid user ID");
+
+        // Get the user details from the mapping
+        User storage userDetails = users[userId];
+
+        // Return the user details
+        return (
+            userDetails.userID,
+            userDetails.username,
+            userDetails.firstname,
+            userDetails.lastname,
+            userDetails.email,
+            userDetails.password,
+            userDetails.mobile,
+            userDetails._address
+        );
+    }
+
+    // Event to signal when a user is updated
+    event UserUpdated(uint userID, string username, string firstname, string lastname, string email, string mobile, string _address);
+
+    // Function to update user profile
+    function updateUser(uint _userID, string memory _username, string memory _firstname, string memory _lastname, string memory _email, string memory _password, string memory _mobile, string memory _address) public {
+        require(users[_userID].userID != 0, "User not registered");
+        
+        User storage user = users[_userID];
+        user.username = _username;
+        user.firstname = _firstname;
+        user.lastname = _lastname;
+        user.email = _email;
+        user.password = _password;
+        user.mobile = _mobile;
+        user._address = _address;
+
+        emit UserUpdated(_userID, _username, _firstname, _lastname, _email, _mobile, _address);
+    }
+
+        // Constructor to set the contract owner
+    constructor() {
+        contractOwner = msg.sender;
+        registerUser("Owner", "Iam", "Owner", "owner@gmail.com", "password");
     }
 }

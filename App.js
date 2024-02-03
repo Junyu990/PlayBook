@@ -2,7 +2,7 @@
 // must include "constant": true,/false,
 
 var Contracts = { SportsBetting:  {
-    abi: [
+    abi:[
         {
             "inputs": [],
             "stateMutability": "nonpayable",
@@ -96,6 +96,12 @@ var Contracts = { SportsBetting:  {
                     "internalType": "bool",
                     "name": "isSettled",
                     "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isActive",
+                    "type": "bool"
                 }
             ],
             "name": "EventCreated",
@@ -169,6 +175,105 @@ var Contracts = { SportsBetting:  {
                     "indexed": false,
                     "internalType": "bool",
                     "name": "isSettled",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isActive",
+                    "type": "bool"
+                }
+            ],
+            "name": "EventDeleted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "EventDeleted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "startTime",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "endTime",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isSettled",
+                    "type": "bool"
+                }
+            ],
+            "name": "EventUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "startTime",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "endTime",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isSettled",
+                    "type": "bool"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bool",
+                    "name": "isActive",
                     "type": "bool"
                 }
             ],
@@ -274,6 +379,68 @@ var Contracts = { SportsBetting:  {
             ],
             "name": "UserRegistered",
             "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "userID",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "username",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "firstname",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "lastname",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "mobile",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "_address",
+                    "type": "string"
+                }
+            ],
+            "name": "UserUpdated",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "activeEventCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
         },
         {
             "inputs": [],
@@ -460,6 +627,11 @@ var Contracts = { SportsBetting:  {
                     "internalType": "bool",
                     "name": "isSettled",
                     "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isActive",
+                    "type": "bool"
                 }
             ],
             "stateMutability": "view",
@@ -561,6 +733,19 @@ var Contracts = { SportsBetting:  {
             "type": "function"
         },
         {
+            "inputs": [],
+            "name": "getContractOwner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -607,6 +792,79 @@ var Contracts = { SportsBetting:  {
                     "internalType": "uint256",
                     "name": "",
                     "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "userId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getUser",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "userID",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "username",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "firstname",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "lastname",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "password",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "mobile",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_address",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "isEventActive",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
                 }
             ],
             "stateMutability": "view",
@@ -714,7 +972,33 @@ var Contracts = { SportsBetting:  {
             ],
             "name": "releaseFunds",
             "outputs": [],
-            "stateMutability": "payable",
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "betId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "releaseToOwner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "totalEthInPool",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -746,6 +1030,54 @@ var Contracts = { SportsBetting:  {
                 }
             ],
             "name": "updateEvent",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_userID",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_username",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_firstname",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_lastname",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_email",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_password",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_mobile",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_address",
+                    "type": "string"
+                }
+            ],
+            "name": "updateUser",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -789,13 +1121,23 @@ var Contracts = { SportsBetting:  {
                     "internalType": "string",
                     "name": "password",
                     "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "mobile",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_address",
+                    "type": "string"
                 }
             ],
             "stateMutability": "view",
             "type": "function"
         }
     ],
-    address: "0x099316A0967C86CABF7CbBCffbDE48C9fc9752AB",
+    address: "0xCEE156853eD515F642844E00E1482eF18fDA69da",
     endpoint: "https://sepolia.infura.io/v3/"
    }}
 
@@ -816,6 +1158,7 @@ BettingApp.prototype.onReady = async function() {
     this.loadBets();
     checkLoggedIn();
     this.loadEvents(); // call the loadEvents func to display the Event list
+    this.loadProfile(); // Load user profile
 }
 BettingApp.prototype.connectMetaMask = async function() {
     if (window.ethereum) {
@@ -898,18 +1241,24 @@ BettingApp.prototype.loadEvents = function() {
         $("#message").text(`Event Count: ${eventCount}`);
         $("#eventsTableBody").empty(); // Empty the events table body
 
+        // Create an array to store event IDs in order
+        var eventIds = [];
+
         // Iterate over each event and load it into the table
         for (var i = 1; i <= eventCount; i++) {
             (function(index) {
                 that.getEvent(index, function(err, eventDetails) {
                     if (err) {
                         console.error(err);
+                        return;
                     }
 
-                    var eventid = eventDetails.id;
+                    var eventid = index; // Use index as event ID
+                    eventIds.push(eventid); // Add event ID to the array
+
                     var name = eventDetails.name;
-                    var startTime = eventDetails.startTime;
-                    var endTime = eventDetails.endTime;
+                    var startTime = new Date(eventDetails.startTime * 1000).toLocaleString(); // Convert UNIX timestamp to readable date format
+                    var endTime = new Date(eventDetails.endTime * 1000).toLocaleString(); // Convert UNIX timestamp to readable date format
                     var settled = eventDetails.isSettled;
 
                     // Asynchronously fetch the bet count for the event
@@ -918,7 +1267,9 @@ BettingApp.prototype.loadEvents = function() {
                             console.error(err);
                             return;
                         }
+                        betCount = betCount;
 
+                        // Update the row with the correct event ID
                         var row =`
                             <tr>
                                 <td>${eventid}</td>
@@ -990,6 +1341,25 @@ BettingApp.prototype.bindButtons = function(){
         that.displaybets(betId); 
     });
 
+    // Button to release funds to the contract owner
+    $(document).on("click", "#button-releaseToOwner", function(){
+        var betId = $(this).data('betid');
+        that.releaseToOwner(betId); // Call the releaseToOwner function when the button is clicked
+    });
+
+    $(document).on("click", "#button-profile", function(){
+        that.loadProfile(); // Call the loadProfile function when the button is clicked
+    });
+
+    $(document).on("click", "#button-editprofile", function(){
+        that.editProfile(); // Call the editprofile function when the button is clicked
+    });
+
+    $(document).on("click", "#updateProfileBtn", function(){
+        that.updateProfile(); // Call the updateprofile function when the button is clicked
+    });
+
+
 }
 
 //Function to retrieve information of the event chosen
@@ -1013,51 +1383,80 @@ BettingApp.prototype.seeinfo = function(eventId) {
         $("#eventStart").val(startTime);
         $("#eventEnd").val(endTime);
 
-        $("#CreateBetTitle").html(`<h2>Create Bet for ${name} at ${startTime} to ${endTime}</h2>`);
+        unixcvtStart = new Date(startTime * 1000).toLocaleString();
+        unixcvtEnd = new Date(endTime * 1000).toLocaleString();
+
+        $("#CreateBetTitle").html(`<h2>Create Bet for ${name} at ${unixcvtStart} to ${unixcvtEnd}</h2>`);
         $("#CreateInputSection").html(`
-            <div class="input-group">
-                <label>Enter your selection:</label>
-                <input type="text" id="teamPlacing" placeholder="Enter your selection..."></input>
+            <div class="placebet container mt-5">
+                <h2 class="mb-4">Place Bet</h2>
+            <div class="input-group mb-3">
+                <label class="col-sm-3 col-form-label" for="teamPlacing">Enter your selection:</label>
+                <input type="text" class="form-control" id="teamPlacing" placeholder="Enter your selection...">
             </div>
-            <div class="input-group">
-                <label>Enter your bet amount:</label>
-                <input type="number" id="amount" placeholder="Enter your bet..."></input>
+            <div class="input-group mb-3">
+                <label class="col-sm-3 col-form-label" for="amount">Enter your bet amount:</label>
+                <input type="number" class="form-control" id="amount" placeholder="Enter your bet...">
             </div>
-            <button id="button-placeBet">Place Bet!</button>
-            <span id="beterrormessage" style="color:red;"></span>
+            <button id="button-placeBet" class="btn btn-primary">Place Bet!</button>
+            <span id="beterrormessage" class="text-danger"></span>
+        </div>
         `);
     });
 };
 
 BettingApp.prototype.createEvent = function() {
     var name = $("#newEventName").val();
-    var startTime = $("#StartTime").val();
-    var endTime = $("#EndTime").val();
+    var startTimeUnix = $("#StartTime").val();
+    var endTimeUnix = $("#EndTime").val();
+    
+    // Ensure Unix timestamps are positive integers
+    var startTime = Math.floor(startTimeUnix);
+    var endTime = Math.floor(endTimeUnix);
+
+    // Check if any field is empty
+    if (!name || !startTime || !endTime) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+
     var that = this;  // Preserve the context of 'this' for use in callbacks
     $("#message").text("Creating new event: " + name + " from " + startTime + " to " + endTime);
   
     // Get the current Ethereum account
     this.web3.eth.getAccounts().then(accounts => {
-      const account = accounts[0];
+        const account = accounts[0];
   
-      // Call the createEvent function on your smart contract
-      that.instance.methods.createEvent(name, startTime, endTime)
-        .send({ from: account })
-        .then(result => {
-          console.log('Event created:', result);
-          // Handle success, e.g., update UI or trigger other actions
-            $("#newEventName").val("");
-            $("#StartTime").val("");
-            $("#EndTime").val("");
-            that.loadEvents();
-        })
-        .catch(error => {
-          console.error('Error creating event:', error);
-          $("#message").text("Event Creation Failed");
-          // Handle error, e.g., display an error message to the user
-        });
+        // Call the createEvent function on your smart contract
+        that.instance.methods.createEvent(name, startTime, endTime)
+            .send({ from: account })
+            .then(result => {
+                console.log('Event created:', result);
+                // Handle success, e.g., update UI or trigger other actions
+                $("#newEventName").val("");
+                $("#StartTime").val("");
+                $("#EndTime").val("");
+                that.loadEvents();
+            })
+            .catch(error => {
+                console.error('Error creating event:', error);
+                $("#message").text("Event Creation Failed");
+                // Handle error, e.g., display an error message to the user
+            });
     });
 };
+
+// Function to get the contract owner's wallet address
+BettingApp.prototype.getContractOwner = function(callback) {
+    this.instance.methods.contractOwner().call((error, result) => {
+        if (error) {
+            callback(error, null);
+        } else {
+            callback(null, result);
+        }
+    });
+};
+
 
 //Calls the houseCount function in the smart contract
 BettingApp.prototype.getBetCount = function (cb) {
@@ -1158,6 +1557,7 @@ BettingApp.prototype.loadBets = function() {
                                 <button id='button-displaybets' data-betid='${betId}' type="button" class="btn btn-primary release-funds-button">
                                     Release Funds
                                 </button>
+                                <button id="button-releaseToOwner" data-betid='${betId}' class='btn btn-primary' >Release Funds to Owner</button>
                             </td>
                         </tr>
                     `;
@@ -1197,6 +1597,8 @@ BettingApp.prototype.displaybets = function(betId) {
 
 // Function to release funds to the winner or to another wallet by the contract owner
 BettingApp.prototype.releaseFunds = function(betId, recipient) {
+    console.log("releaseFunds method called with betId:", betId, "and recipient:", recipient);
+
     // Check if betId is null or undefined
     if (!betId) {
         $("#releaseerror").text("Invalid bet ID. Please select one!");
@@ -1219,6 +1621,7 @@ BettingApp.prototype.releaseFunds = function(betId, recipient) {
                         console.log('Funds released:', receipt);
                         // Reload bets and clear input values
                         that.loadBets();
+                        that.loadEvents();
                         $("#betId").val("");
                         $("#eventId").val("");
                         $("#teamPlacing").val("");
@@ -1237,6 +1640,39 @@ BettingApp.prototype.releaseFunds = function(betId, recipient) {
             console.error('Error getting contract owner:', error);
         });
 };
+
+// Function to release funds to the contract owner
+BettingApp.prototype.releaseToOwner = function(betId) {
+    var that = this;
+    this.getContractOwner(function(err, ownerAddress) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        
+        that.getBet(betId, function(err, betDetails) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            
+            // Extract bet details from the result
+            var eventId = betDetails.eventId;
+            var teamPlacing = betDetails.teamPlacing;
+            var amount = betDetails.amount;
+            var time = betDetails.time;
+            var isSettled = betDetails.isSettled;
+            
+            // Update the input boxes with the bet details
+            $('#betId').val(betId);
+            $('#eventId').val(eventId);
+            $('#teamPlacing').val(teamPlacing);
+            $('#amount').val(amount);
+            $('#wallet').val(ownerAddress);
+        });
+    });
+};
+
 
 // Function to place a new bet
 BettingApp.prototype.placeBet = function(buttonid) {
@@ -1412,8 +1848,8 @@ BettingApp.prototype.registerUser = function() {
                         $("#lastname").val("");
                         $("#emailaddress").val("");
                         $("#password").val(""); // Clear the password field after registration
-                        // Redirect to index.html after successful registration
-                        window.location.href = "index.html";
+                        // Redirect to login.html after successful registration
+                        window.location.href = "login.html";
                     } else {
                         $("#errormessage").text("User Registration Failed");
                     }
@@ -1453,26 +1889,40 @@ BettingApp.prototype.loginUser = function() {
                         that.instance.methods.findUserIDByUsername(username)
                             .call({ from: account })
                             .then(userId => {
-                                // Store user ID in session storage
-                                sessionStorage.setItem("userId", userId);
-                                sessionStorage.setItem("username", username);
+                                // Check if userId is a valid number
+                                if (!isNaN(userId) && userId > 0) {
+                                    // Store user ID in session storage
+                                    sessionStorage.setItem("userId", userId);
+                                    sessionStorage.setItem("username", username);
 
-                                // Redirect to index.html after successful login
-                                window.location.href = "index.html";
+                                    // Redirect to index.html after successful login
+                                    window.location.href = "index.html";
+                                } else {
+                                    // Display error message for invalid user ID
+                                    $("#loginerrormessage").text("Invalid user ID returned from the smart contract");
+                                }
                             })
                             .catch(error => {
                                 console.error('Error retrieving user ID:', error);
+                                $("#loginerrormessage").text("Error retrieving user ID from the smart contract");
                             });
                     } else {
-                        $("#loginerrormessage").text("Login failed: " + receipt.errorMessage);
+                        // Check if the error message indicates invalid credentials
+                        if (receipt.errorMessage.includes("Invalid username or password")) {
+                            $("#loginerrormessage").text("Incorrect username or password");
+                        } else {
+                            $("#loginerrormessage").text("Login failed: " + receipt.errorMessage);
+                        }
                     }
                 })
                 .catch(error => {
                     console.error('Error logging in user:', error);
+                    $("#loginerrormessage").text("Error logging in user");
                 });
         });
     }
 };
+
 
 // Function to find the user ID by username
 BettingApp.prototype.findUserIDByUsername = function(username, callback) {
@@ -1491,7 +1941,7 @@ BettingApp.prototype.findUserIDByUsername = function(username, callback) {
 // Function to check if a user is logged in
 function checkLoggedIn() {
     var userID = sessionStorage.getItem('userId');
-    console.log('Logged in to: '+ sessionStorage.getItem('userId') + " " +sessionStorage.getItem('username'))
+    console.log('Logged in to: ' + sessionStorage.getItem('userId') + " " + sessionStorage.getItem('username'))
     if (userID > 0) {
         // User is logged in
         var username = sessionStorage.getItem('username');
@@ -1500,7 +1950,7 @@ function checkLoggedIn() {
             document.getElementById('welcomeMessage').textContent = 'Welcome, ' + username;
             document.getElementById('logoutButton').style.display = 'inline-block';
             document.getElementById('signUpButton').style.display = 'none';
-            document.getElementById('loginButton').style.display = 'none';
+            document.getElementById('button-profile').classList.add('btn', 'btn-outline-primary'); // Remove the classes from the profile button
         }
     } else {
         // User is not logged in
@@ -1508,6 +1958,7 @@ function checkLoggedIn() {
         // Show sign up and login buttons
         document.getElementById('signUpButton').style.display = 'inline-block';
         document.getElementById('loginButton').style.display = 'inline-block';
+        document.getElementById('button-profile').classList.remove('btn', 'btn-outline-primary'); // Add the classes to the profile button
     }
 }
 
@@ -1573,23 +2024,153 @@ BettingApp.prototype.loadUsers = function() {
         });
 };
 
+
 document.addEventListener("DOMContentLoaded", function() {
     // Check if user ID and username exist in the session
-    var userId = sessionStorage.getItem("userID");
+    var userId = sessionStorage.getItem("userId");
     var username = sessionStorage.getItem("username");
 
     // If either user ID or username is missing, hide elements with id "listowneronly"
-    if (username != 'Owner') {
+    if (username !== 'Owner') {
         var listOwnerOnlyElements = document.querySelectorAll("#listowneronly");
         listOwnerOnlyElements.forEach(function(element) {
             element.style.display = "none";
         });
     }
-
-    if (username != 'Owner') {
-        var ownerOnlyElements = document.querySelectorAll(".owneronly");
-        ownerOnlyElements.forEach(function(element) {
-            element.style.display = "none";
-        });
-    }
 });
+
+// Function to load user profile from the smart contract
+BettingApp.prototype.loadProfile = function() {
+    var that = this;
+
+    // Retrieve user ID from session storage
+    var userId = sessionStorage.getItem("userId");
+
+    if (!userId) {
+        console.error('User ID not found in session storage');
+        return;
+    }
+
+    // Get the current Ethereum account asynchronously
+    this.web3.eth.getAccounts().then(accounts => {
+        const account = accounts[0];
+
+        // Call the getUserProfile function on the smart contract
+        that.instance.methods.getUser(userId)
+            .call({ from: account })
+            .then(profile => {
+                console.log('User profile:', profile);
+                // Update UI with user profile data
+                $('#name').text(profile.username || 'N/A');
+                $('#firstname').text(profile.firstname || 'N/A');
+                $('#lastname').text(profile.lastname || 'N/A');
+                $('#email, #email2').text(profile.email || 'N/A');
+                $('#mobile').text(profile.mobile || 'N/A');
+                $('#address').text(profile._address || 'N/A');
+
+            })
+            .catch(error => {
+                console.error('Error loading user profile:', error);
+            });
+    }).catch(error => {
+        console.error('Error getting Ethereum accounts:', error);
+    });
+};
+
+$(document).ready(function() {
+    // Hide the editprofile section initially
+    $('#editprofile').hide();
+
+    // Add event listener to the Edit button
+    $('#button-editprofile').click(function() {
+      // Toggle the visibility of the editprofile section
+      $('#editprofile').toggle();
+    });
+  });
+
+// Function to retrieve information of the user for editing
+BettingApp.prototype.editProfile = function() {
+    var that = this;
+
+    // Get the current Ethereum account asynchronously
+    this.web3.eth.getAccounts().then(accounts => {
+        const account = accounts[0];
+
+        // Retrieve user ID from session storage
+        var userId = sessionStorage.getItem("userId");
+
+        // Call the getUserProfile function on the smart contract
+        that.instance.methods.getUser(userId)
+            .call({ from: account })
+            .then(profile => {
+                console.log('User profile:', profile);
+
+                // Extract user information
+                var firstname = profile.firstname || '';
+                var lastname = profile.lastname || '';
+                var email = profile.email || '';
+                var mobile = profile.mobile || '';
+                var address = profile._address || '';
+                var password = profile.password || '';
+
+                // Set input values with user information
+                $("#updatefirstname").val(firstname);
+                $("#updatelastname").val(lastname);
+                $("#updateemail").val(email);
+                $("#updatemobile").val(mobile);
+                $("#updateaddress").val(address);
+                $("#updatepassword").val(password);
+
+            })
+            .catch(error => {
+                console.error('Error retrieving user profile:', error);
+            });
+    });
+};
+
+
+// Function to handle updating the user profile
+BettingApp.prototype.updateProfile = function() {
+    var that = this;
+
+    // Retrieve user ID from session storage
+    var userId = sessionStorage.getItem("userId");
+    var username = sessionStorage.getItem("username");
+    
+    // Retrieve updated profile information from input fields
+    var updatedFirstName = $("#updatefirstname").val() || '';
+    var updatedLastName = $("#updatelastname").val() || '';
+    var updatedEmail = $("#updateemail").val() || '';
+    var updatedMobile = $("#updatemobile").val() || '';
+    var updatedAddress = $("#updateaddress").val() || '';
+    var updatedPassword = $('#updatepassword').val() || '';
+
+    // Check if any required field is empty
+    if (!updatedFirstName || !updatedLastName || !updatedEmail || !updatedMobile || !updatedAddress || !updatedPassword) {
+        console.error('Please fill in all required fields.');
+        // Optionally, you can display an error message to the user
+        alert('Please fill in all required fields.');
+        return;
+    }
+
+    // Get the current Ethereum account asynchronously
+    this.web3.eth.getAccounts().then(accounts => {
+        const account = accounts[0];
+
+        // Call the updateUser function on your smart contract
+        that.instance.methods.updateUser(userId, username, updatedFirstName, updatedLastName, updatedEmail, updatedPassword, updatedMobile, updatedAddress)
+            .send({ from: account })
+            .then(receipt => {
+                console.log('User profile updated successfully:', receipt);
+                // Optionally, you can display a success message to the user or perform other actions
+                that.loadProfile();
+            })
+            .catch(error => {
+                console.error('Error updating user profile:', error);
+                // Optionally, you can display an error message to the user or perform other actions
+            });
+    }).catch(error => {
+        console.error('Error getting Ethereum accounts:', error);
+        // Optionally, you can display an error message to the user or perform other actions
+    });
+};

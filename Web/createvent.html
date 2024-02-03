@@ -31,6 +31,9 @@
   <script type="text/javascript" src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script> 
   <script src="https://cdn.jsdelivr.net/npm/web3@1.3.6/dist/web3.min.js"></script>
   <script src="../App.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 
   <script>
     // create a function to update the date and time
@@ -83,7 +86,8 @@
 
       <div class="header-social-links d-flex align-items-center">
         <!-- Welcome Message and Logout Button -->
-        <span id="welcomeMessage" style="color: white;"></span>
+        <a href="../Web/profile.html" id="button-profile" class="btn btn-outline-primary"><span id="welcomeMessage" style="color: white;"></span></a>
+        <button class="btn btn-outline-primary ms-3 active" id="logoutButton" onclick="logout()">Logout</button>
         <button class="btn btn-outline-primary ms-3 active" id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
         
         <!-- Sign Up Button -->
@@ -117,54 +121,120 @@
     </section><!-- End Breadcrumbs -->
 
     <section class="inner-page">
-        <div class="container">
-            <table id="eventsTable" class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th colspan="5" style="text-align: center;">Event Listings</th>
-                    <th colspan="2" style="text-align: center;">Bet Info</th>
-                  </tr>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Start Time</th>
-                    <th scope="col">End Time</th>
-                    <th scope="col">Settled</th>
-                    <th scope="col">No. of Bets Made</th>
-                    <th scope="col">Make Bet?</th>
-                  </tr>
-                </thead>
-                <tbody id="eventsTableBody">
-                  <!-- Event data will be dynamically inserted here -->
-                  
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="7" id="message"></td>
-                  </tr>
-                </tfoot>
-              </table>
+      <div class="container">
+          <div class="card">
+            <div class="card-body">
+                <!-- Grid row -->
+                <!--Table-->
+                <table id="eventsTable" class="table table-hover table-responsive mb-0 mt-0" style="border: 1px; ">
+                    <!--Table head-->
+                    <thead>
+                      <tr>
+                        <th scope="row" colspan="5" style="text-align: center;">Event Listings</th>
+                        <th scope="row" colspan="2" style="text-align: center;">Bet Information</th>
+                      </tr>
+                        <tr>
+                            <th scope="row">#</th>
+                            <th class="th-lg"><a>Event Name</a></th>
+                            <th class="th-lg"><a>Start Time</a></th>
+                            <th class="th-lg"><a>End Time</a></th>
+                            <th class="th-lg"><a>Settled?</a></th>
+                            <th class="th-lg"><a>No. of Bets Made</a></th>
+                            <th class="th-lg"><a>Make Bet?</a></th>
+                        </tr>
+                    </thead>
+                    <!--Table head-->
+                    <!--Table body-->
+                    <tbody id="eventsTableBody">
+                        
+                    </tbody>
+                    
+                    <!--Table body-->
+                    <tfoot>
+                      <tr>
+                        <td colspan="7" id="message"></td>
+                      </tr>
+                    </tfoot>
+                </table>
+                <!--Bottom Table UI-->
+                <div class="d-flex justify-content-center">
+                    <!--Pagination -->
+                    <nav class="my-4 pt-2">
+                        <ul class="pagination pagination-circle pg-blue mb-0">
+                            <!--First-->
+                            <li class="page-item disabled clearfix d-none d-md-block"><a class="page-link">First</a></li>
+                            <!--Arrow left-->
+                            <li class="page-item disabled">
+                                <a class="page-link" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                            </li>
+                            <!--Numbers-->
+                            <li class="page-item active"><a class="page-link">1</a></li>
+                            <li class="page-item"><a class="page-link">2</a></li>
+                            <li class="page-item"><a class="page-link">3</a></li>
+                            <li class="page-item"><a class="page-link">4</a></li>
+                            <li class="page-item"><a class="page-link">5</a></li>
+                            <!--Arrow right-->
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                            </li>
+                            <!--First-->
+                            <li class="page-item clearfix d-none d-md-block"><a class="page-link">Last</a></li>
+                        </ul>
+                    </nav>
+                    <!--/Pagination -->
+                </div>
+                <!--Bottom Table UI-->
+            </div>
+        </div>
           <hr/>
             <span id="datetime"></span>
-          <div id="createevent">
-            <h2>Create a New Event</h2>
-            <div class="input-group">
-                <label for="newEventName">Event Name: </label>
-                <input type="text" id="newEventName" placeholder="Enter new event name...">
-            </div>
-            <div class="input-group">
-                <label for="StartTime">Event Start Time:</label>
-                <input type="number" id="StartTime" placeholder="Enter new event start time...">
-            </div>
-            <div class="input-group">
-                <label for="EndTime">Event End Time</label>
-                <input type="number" id="EndTime" placeholder="Enter new event end time...">
-            </div>
-            <button id="button-createEvent">Create Event!</button>
-            <span id="eventerror" style="color: red;"></span>
-        </div>
+          <div id="createevent" class="container">
+              <h2 class="mb-3">Create a New Event</h2>
+              <div class="row mb-3">
+                  <label for="newEventName" class="col-sm-3 col-form-label">Event Name:</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" id="newEventName" placeholder="Enter new event name...">
+                  </div>
+              </div>
+              <div class="row mb-3">
+                  <label for="StartTime" class="col-sm-3 col-form-label">Event Start Time:</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" id="StartTime" placeholder="Select start time..." data-input>
+                  </div>
+              </div>
+              <div class="row mb-3">
+                  <label for="EndTime" class="col-sm-3 col-form-label">Event End Time:</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" id="EndTime" placeholder="Select end time..." data-input>
+                  </div>
+              </div>
+              <button id="button-createEvent" class="btn btn-primary">Create Event!</button>
+              <span id="eventerror" style="color: red;"></span>
+          </div>
 
-        </div>
+
+          <script>
+            // Initialize Flatpickr for start time input
+            const startTimePicker = flatpickr("#StartTime", {
+                enableTime: true,
+                dateFormat: "U", // Set to Unix timestamp format
+                minDate: "today", // Optionally, you can set a minimum date
+            });
+
+            // Initialize Flatpickr for end time input
+            const endTimePicker = flatpickr("#EndTime", {
+                enableTime: true, 
+                dateFormat: "U", // Set to Unix timestamp format
+                minDate: "today", // Optionally, you can set a minimum date
+            });
+          </script>
+          
       </section>
 
   </main><!-- End #main -->

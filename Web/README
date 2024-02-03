@@ -1,0 +1,25 @@
+To Log In with the Owner account use this credentials below:
+Username: Owner
+Password: password
+
+To access the DApp to create events go to the Events Section and click on the Create Events button, it will bring you to the createevent.html page.
+
+Enter the information to create an event.
+
+Other Options limited to user only would be 
+1. View Event information
+2. Create Events
+3. Update Events
+3. Create Bets
+
+Options for Owner would be
+1. Delete Events
+2. Release Funds to the better
+3. Release Funds to the Smart Contract Owner
+
+For the profile section, once you have signed up, you will be able to view the profile
+Functions includes
+1. Update Profile informationm (First name, last name, mobile, address)
+2. Changing Password
+
+Validations would be validating whether the fields are empty, if they are, an alert or error message will be shown.
