@@ -1950,6 +1950,7 @@ function checkLoggedIn() {
             document.getElementById('welcomeMessage').textContent = 'Welcome, ' + username;
             document.getElementById('logoutButton').style.display = 'inline-block';
             document.getElementById('signUpButton').style.display = 'none';
+            document.getElementById('loginButton').style.display = 'none';
             document.getElementById('button-profile').classList.add('btn', 'btn-outline-primary'); // Remove the classes from the profile button
         }
     } else {
